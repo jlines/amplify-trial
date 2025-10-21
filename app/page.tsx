@@ -8,7 +8,33 @@ import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 
-Amplify.configure(outputs);
+//Amplify.configure(outputs);
+
+Amplify.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: "us-east-1_ht2H5Bj34",
+      userPoolClientId: "2jtea7nu27a5qps9t1e04ld2g8",
+      loginWith: {
+        email: true,
+      },
+      signUpVerificationMethod: "code",
+      userAttributes: {
+        email: {
+          required: true,
+        },
+      },
+      allowGuestAccess: true,
+      passwordFormat: {
+        minLength: 8,
+        requireLowercase: true,
+        requireUppercase: true,
+        requireNumbers: true,
+        requireSpecialCharacters: true,
+      },
+    },
+  },
+})
 
 const client = generateClient<Schema>();
 
